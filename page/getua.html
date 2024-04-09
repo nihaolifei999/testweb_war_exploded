@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<br lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getUserAgent</title>
+    <script src="../js/common.js"></script>
+    <script>
+        function showCookies() {
+            let table = document.getElementById('table');
+            for (let i = 0; i < table.rows.length; i++) {
+                table.deleteRow(0);
+            }
+            var cookies = getCookies();
+            cookies.forEach(function (cookie) {
+                var row = table.insertRow(table.rows.length);
+                var cell = row.insertCell(0);
+                cell.style.cssText = "color: blue; font-size: 40px";
+                cell.innerText = cookie.toString();
+                console.log("cookie = " + cookie);
+            });
+        }
+
+        function showHeader() {
+            var result = '';
+            fetch(window.location.href).then(function(response) {
+                return response.headers; // 返回包含所有 response headers 的 Headers 对象
+            }).then(function(headers) {
+                for (let [key, value] of headers) {
+                    result += key + ':' + value + '\n'; // 逐行输出每个 header 及其值
+                    console.log(result);
+                    document.getElementById('get_header').innerText = result;
+                }
+            });
+        }
+
+        function saveCookie(name, value) {
+            setCookie(name, value);
+        }
+    </script>
+    <style type="text/css">
+        a {
+            color: black; font: 40px "Monaco"
+        }
+        a.baidu {
+            color: blue; font: 40px "Monaco"
+        }
+        a.taobao {
+            color: orange; font: 60px "Monaco"
+        }
+        a.tbstore {
+            color: blue; font: 40px "Monaco"
+        }
+        a.tbstore {
+            color: orange; font: 60px "Monaco"
+        }
+        button {
+            font: 30px "Monaco"
+        }
+        iframe.ibaidu {
+            margin: 20px;
+            width: 600px;
+            height: 400px;
+        }
+        p.ua {
+            color: black; font: 40px "Apple Symbols"
+        }
+        p.hd {
+            color: blue; font: 40px "Apple Symbols"
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            font: 30px "Apple Symbols";
+        }
+    </style>
+</head>
+    </br>
+    <iframe class="ibaidu" id="ibaidu" src="https://m.baidu.com">
+    </iframe>
+    </br>
+    <button type="button" onclick="showHeader()">获取当前header</button>
+    <p id="get_header" class="hd"></p>
+    </br>
+    <a class="baidu" href="https://www.baidu.com" target="_blank">新标签打开百度web</a>
+    </br>
+    <a class="taobao" href="tbopen://">打开淘宝dp</a>
+    </br>
+    <a class="taobao" href="https://dsp-creative.ubixioe.com/video/180/20231031/dec5d4e022ca4e4da4ce1e85f8e4d7ef/d614d804bffa4caf9d68ab580ecb0a0a.mp4" target="_blank">小红书视频</a>
+    </br>
+    <a class="mp" href="ubixad://mini_program/mp2?userName=gh_45b306365c3d&path=%2Fabc%2Fdef">打开小程序</a><br/>
+    <a class="mp" href="ubixad://mini_program/mp2?userName=gh_45b306365c3d&path=">打开小程序(无path)</a><br/>
+    <a class="mp" href="ubixad://mini_program/mp2?userName=&path=%2Fabc%2Fdef">打开小程序(无userName)</a><br/>
+    </br>
+    <a class="tbstore" href="https://apps.apple.com/cn/app/%E6%B7%98%E5%AE%9D-%E5%8F%8C%E6%97%A6%E7%A4%BC%E9%81%87%E6%AD%A3%E5%BD%93%E6%97%B6/id387682726">打开淘宝appstore</a>
+
+    </br>
+    <p></p>
+    <button class="getua" type="button" onclick="document.getElementById('get_ua').innerText = getUserAgent()">web端获取UA</button>
+    <p id="get_ua" class="ua"></p>
+
+    <button class="getua" type="button" onclick="window.location.href='ubix://ubixai.com/getcookie'">sdk端获取cookie</button>
+
+    <p></p>
+    <input id="cookie_name" placeholder="cookie.name">
+    <input id="cookie_value" placeholder="cookie.value">
+    </br>
+    <button type="button" onclick=saveCookie(document.getElementById('cookie_name').value,document.getElementById('cookie_value').value)>保存cookie</button>
+    <button type="button" onclick="showCookies()">show当前cookies</button>
+    <button type="button" onclick="window.location.href='ubix://ubixai.com/getcookie'">sdk端获取cookie</button>
+
+    <table id="table" border="1">
+    </table>
+
+    <script>
+        function autoopenAppStore() {
+            let rd = Math.floor(Math.random() * 10);
+            if (rd < 0) {
+                window.location.href='https://apps.apple.com/cn/app/%E5%BE%AE%E4%BF%A1/id414478124';
+            }
+        }
+        autoopenAppStore();
+    </script>
+</body>
+</html>
